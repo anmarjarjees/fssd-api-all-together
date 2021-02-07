@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Array Map Method</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>JavaScript Array map() Method</h1>
+        <h2>Definition and Usage</h2>
+        <p>The map() method creates a new array with the results of calling a function for every array element.</p>
+        <p>The map() method calls the provided function once for each element in an array, in order.</p>
+        <p>Note: map() does not execute the function for array elements without values.</p>
+        <p>Note: this method does not change the original array.</p>
+        <hr>
+        <h2>Browser Support</h2>
+        <ul>
+            <li>Chrome: Yes</li>
+            <li>Internet Explorer: since version 9.0</li>
+            <li>Firefox: since 1.5</li>
+            <li>Safari: Yes</li>
+            <li>Opera: Yes</li>
+        </ul>
+        <hr>
+        <h2>Syntax</h2>
+        <p>array.map(function(currentValue, index, arr), thisValue)</p>
+
+        <h2>Results</h2>
+        <p id="sqrt"></p>
+        <p id="times"></p>
+        <footer>
+            &copy; 2020 W3Schools.com | FSSD Program | Instructor: Anmar Jarjees
+        </footer>
+    </div>
+
+    <script>
+        /*
+       arrayName.map(our function)
+       */
+
+        /*
+        Example 1: 
+        Return an array with the square root of all the values in the original array:
+        */
+        var numbers1 = [4, 9, 16, 25]; // our original array
+
+        // The solution using our normal way that we have learned before:
+        // the idea is to get numbers1=[2,3,4,5]
+
+        var numbers1result = []; // declare an empty array => our new array
+        for (var i = 0; i < numbers1.length; i++) {
+            // Using this method of Math object named "sqrt()"
+            numbers1result[i] = Math.sqrt(numbers1[i]);
+            // Or:
+            // numbers1result.push( Math.sqrt(numbers1[i]));
+        }
+        // for testing
+        console.log(numbers1result); // array => [2,3,4,5]
+
+        // The solution using .map() array method
+        /*
+            arrayName.map( using any built-in JS method(function) )
+
+            arrayName.map ( function() {
+                // writing my own code
+                // this code will target all the elements in the array
+            })
+        */
+        var numbers2result = numbers1.map(Math.sqrt);
+        // for testng
+        console.log(numbers2result); // array => [2,3,4,5]
+        document.getElementById("sqrt").innerHTML = numbers2result;
+
+        // **************************************************************
+        /*
+        Example 2: 
+        Return an array with the all the values * 2 in the original array:
+        our original array => numbers2 = [2, 3, 4, 5];
+        Task:
+        new (result) array = numbers2 elements * 2
+        [2*2,3*2,4*2,5*2] => [4,6,8,10]
+        */
+
+        // creating our array
+        var numbers2 = [2, 3, 4, 5];
+
+        // creating a custom function
+        // accepts one value and return the value * 2 result
+        function timesTwo(num) {
+            return num * 2;
+        }
+
+        /* 
+        Notice Below that we are invoking a function here inside map() method 
+        without passing argument explicitly as the arguments will be passed implicitly 
+        Why?
+        
+        Because:
+        As we have just learned:
+        The array map function is just a shorthand way of calling a certain function, 
+        for every element in an array.
+
+        So when you say array.map(functionName) => numbers2.map(timesTwo)
+        The function "timesTwo"  are being called once for every item in the array, 
+        which means every array item is being passed into the function "timesTwo" 
+        through the magic of map() method
+
+        The returned values from "timesTwo" function are then stored in an new array, which is returned from map() method
+        */
+        var nums2 = numbers2.map(timesTwo);
+        document.getElementById("times").innerHTML = nums2;
+
+        // Review: the modulo % operator
+        console.log(4 % 2); // 0 because 4 is even number
+        console.log(5 % 2); // 1 because 5 is odd number
+
+
+        // One more example:
+        var evenOddArray = [7, 4, 3, 78, 9, 4, 3, 74, 8, 45, 12];
+
+        // create a new array that contains only the even numbers from "evenOddArray":
+        // evenArray =  ["Odd Number", 4, "Odd Number", 78, "Odd Number", 4, "Odd Number", 74, 8, "Odd Number", 12];
+
+        function getEvenNum(num) {
+            if (num % 2 == 0) {
+                return num;
+            } else {
+                return "Odd Number";
+            }
+        }
+
+        var evenArray = evenOddArray.map(getEvenNum);
+        console.log("Even Array: ", evenArray);
+
+        // try the same task for odd numbers
+        // oddArray = [7, "Even Number", 3, "Even Number", 9, "Even Number", 3, "Even Number", "Even Number", 45, 12];
+
+        var oddArray = evenOddArray.map(function (element) {
+            if (element % 2 != 0) {
+                return element;
+            } else {
+                return "Even Number";
+            }
+        });
+        console.log("Odd Array: ", oddArray);
+
+
+        // Again one last example:
+        var smallLettersArray = ["a", "b", "c", "d", "e", "f", "g"];
+
+        // Answer#1: Using the standard basic way with for loop:
+        var myNewArray = []; // we need to declare specify our empty array before the loop
+        for (var i = 0; i < smallLettersArray.length; i++) {
+            myNewArray.push(smallLettersArray[i].toUpperCase());
+        }
+        console.log("Our New Array (myNewArray)", myNewArray);
+
+        // Answer#2: Using array object map() method
+        // Task create a new array out of smallLettersArray to have the same letters but with capital 
+        // name it "capitalLettersArray"
+        /*
+        Check this link in W3Schools: https://www.w3schools.com/jsref/jsref_touppercase.asp
+        */
+        var capitalLettersArray = smallLettersArray.map(function (letter) {
+            return letter.toUpperCase();
+        });
+        console.log("Our Original Array (smallLettersArray)", smallLettersArray);
+        console.log("Our New Array (capitalLettersArray)", capitalLettersArray);
+
+        // Review: we can use .length property with string also not only array:
+        console.log("the length of nums2 array is:" + nums2.length);
+
+        var myFavLanguage = "JavaScript";
+        console.log("the length of myFavLanguage string variable is:" + myFavLanguage.length);
+    </script>
+</body>
+
+</html>

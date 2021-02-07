@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rosie Odenkirk</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        type="text/css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+        type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.1.1/css/hover-min.css"
+        type="text/css" />
+    <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+
+    <!-- As the instructions state, we placed the code before the head closing tag -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+
+    <script type="text/javascript">
+        // Below is just the template for a self-invoking function:
+        // Just for learning purpose (Nothing to do with EmailJS)
+        (function () {
+            // our code
+            console.log("hi there I am just a self invoking function!");
+        })();
+
+        /*
+        This is a self invoking function, 
+        so as soon as the page is opened/refreshed, this function is going to be called.
+
+        Which means every time you visit or refresh this page, an email will be send to you immediately after finishing the function!
+
+        This will be the major function to contain all the EmailJS Code:
+      */
+        (function () {
+            // 1. Installing EmailJS
+            // Please use your own ID key after finishing your registration process
+            // You can obtain your user ID from the Account - API keys page in the EmailJS dashboard.
+            // NOTE: 
+            // you can see your ID and API KEY within the same page section (Integration) of copying this code
+            // in other word, You can obtain your user ID from the integration page in the EmailJS dashboard
+            // emailjs.init("YOUR_USER_ID");
+            emailjs.init("user_J002NwewzK42InutfGPg8");
+
+            // 2. emailjs.send
+            // Add the following code from EmailJS docs: SDK => emailjs.send which is the basic method to send an email with EmailJS.
+            // The link: https://www.emailjs.com/docs/sdk/send/
+
+            // creating a simple JS object 
+
+            // Docs Syntax, the full official: emailjs.send(serviceID, templateID, templateParams, userID).then();
+            // The very basic method: emailjs.send("outlook","cbc_demo2");
+            // emailjs.send('outlook', 'cbc_demo2'); // it works fine just for a very quick test
+
+            // add the following code from EmailJS docs: SDK => emailjs.send
+            // which is the basic method to send an email with EmailJS.
+            // creating a simple JS object 
+            var templateParams = {
+                /*
+                We just copied this code from the docs page and modified it:
+                name: 'James',
+                notes: 'Check this out!'
+                */
+                name: 'Intructor Anmar',
+                notes: 'Email Demo for my FSSD students!'
+            }
+
+            /*
+            Filling the info:
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+
+            No we need to know our Service_ID and Template_ID
+
+            Based on the test email that we tried:
+            YOUR_SERVICE_ID => outlook
+            YOUR_TEMPLATE_ID => cbc_demo2
+
+            If you can't remember these two values, you can login into EmailJS then:
+            - check the service id in the home page
+            - check the template id in the Email Templates page (by clicking on Email Templates)
+
+            Notice that this part of the code: .then(function....)
+            it's new and additional.
+            We will use the same .then() code block later
+
+            In the lesson video, there is no .then() code as we will write them later,
+            but because we took the following code from the EmailJS docs, 
+            we got the full code template
+            */
+            // userID is optional
+            emailjs.send('outlook', 'cbc_demo2', templateParams).then(function (response) {
+                console.log('SUCCESS!', response.status, response.text);
+            }, function (error) {
+                console.log('FAILED...', error);
+            }); // the end of method then() for emailjs.send()
+        })();  // the end of our self invoking major function
+
+        //*********************************************//
+        // Instead of using self-invoking function
+        // you can use the normal way of creating a function and calling it after:
+        /*
+        function sendEmail() {
+            // copy and paste your full code:
+            emailjs.init("user_J002NwewzK42InutfGPg8");
+        }
+
+        sendEmail();
+        */
+
+    </script>
+
+    <style>
+        /* Quick Review: */
+        .myDiv {
+            margin: 5px 5px 5px 5px;
+            /* Or just the short way */
+            margin: 5px;
+
+            border-width: 2px;
+            border-style: dotted;
+            border-color: blue;
+            /* Or just the short way */
+            border: 2px dotted blue;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="container-fluid">
+        <div class="row">
+            <a href="index.html">
+                <div class="col-md-4 logo"></div>
+            </a>
+            <div class="col-md-8">
+                <div class="row bg-color-name-title">
+                    <div class="heading">
+                        <h1 class="name">Rosie Odenkirk</h1>
+                        <h2 class="title"> Full Stack Developer</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <ul id="nav" class="list-inline clearfix">
+                        <li class="col-xs-6 col-sm-2 ui-menu-color-home menuitem">
+                            <a href="index.html" class="hvr-sweep-to-bottom"><i class="fa fa-home"
+                                    aria-hidden="true"></i><span>Home</span></a>
+                        </li>
+                        <li class="col-xs-6 col-sm-2 ui-menu-color-resume menuitem">
+                            <a href="resume.html" class="hvr-sweep-to-bottom"><i class="fa fa-graduation-cap"
+                                    aria-hidden="true"></i><span>Resume</span></a>
+                        </li>
+                        <li class="col-xs-6 col-sm-2 ui-menu-color-contact menuitem">
+                            <a href="contact.html" class="hvr-sweep-to-bottom"><i class=" fa fa-commenting-o"
+                                    aria-hidden="true"></i><span>Contact</span></a>
+                        </li>
+                        <li class="col-xs-6 col-sm-2 ui-menu-color-interests menuitem">
+                            <a href="interests.html" class="hvr-sweep-to-bottom"><i class="fa fa-users"
+                                    aria-hidden="true"></i><span>Interests</span></a>
+                        </li>
+                        <li class="col-xs-6 col-sm-2 ui-menu-color-github menuitem">
+                            <a href="github.html" class="hvr-sweep-to-bottom"><i class="fa fa-github"
+                                    aria-hidden="true"></i><span>GitHub</span></a>
+                        </li>
+                        <li class="col-xs-6 col-sm-2 ui-menu-color-download menuitem">
+                            <a href="assets/cv/sample-cv.pdf" target="_blank" class="hvr-sweep-to-bottom"><i
+                                    class="fa fa-download" aria-hidden="true"></i><span>Download CV</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="container-fluid">
+        <div class="row bg-color-contact">
+            <div>
+                <h3 class="contact-heading uppercase text-center">Got a project in mind?</h3>
+                <h5 class="uppercase text-center">Let's work together</h5>
+            </div>
+            <div class="center-form">
+                <form>
+                    <input type="text" name="name" class="form-control" id="fullname" placeholder="Name" required />
+                    <input type="text" name="emailaddress" class="form-control" id="emailaddress" placeholder="Email"
+                        required />
+                    <textarea rows="5" name="projectsummary" class="form-control" id="projectsummary"
+                        placeholder="Project Description" required></textarea>
+                    <button type="submit" class="btn btn-secondary center-block">Send Project Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <footer class="container-fluid">
+        <div id="footer-details" class="row">
+            <div class="col-sm-4">
+                <h5 class="uppercase general-sub">About</h5>
+                <p class="inline-block">
+                    Full Stack Web Developer. Skilled in everything from HTML to Heroku. The capacity for structural and
+                    design thinking.
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h5 class="uppercase general-sub">Download My CV</h5>
+                <p class="inline-block">
+                    Need a printable version of my CV? Download it here.
+                    <a href="assets/cv/sample-cv.pdf" target="_blank" class="cv-pdf"><i class="fa fa-download"
+                            aria-hidden="true"></i></a>
+                </p>
+            </div>
+            <div class="col-sm-4">
+                <h5 class="uppercase general-sub">MySocial</h5>
+                <ul class="list-inline social-links">
+                    <li><a target="_blank" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a target="_blank" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a target="_blank" href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a target="_blank" href="#"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a target="_blank" href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a target="_blank" href="#"><i class="fa fa-youtube"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
