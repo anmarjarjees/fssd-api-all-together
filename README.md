@@ -1,7 +1,7 @@
 # Application Programming Interface (API) - Google Map - GitHub - EmailJS
 
 ## About This Repo:
-Google Map, GitHub, and EmailJS APIs Code Examples and Exercises with Comments for My Students-FSSD Program - Full-Stack Software Developer Program
+Google Map, GitHub, and EmailJS APIs Code Examples and Exercises with Comments for My Students - Full-Stack Software Developer Program
 
 ## References:
 - Code Institute | Full Stack Software Development Diploma - Working with All APIs from Google Map, GitHub, and EmailJS
