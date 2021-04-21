@@ -17,18 +17,20 @@
     <!-- As the instructions state, we placed the code before the head closing tag -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
 
-    <!-- We can place this code "emailjs.init()" either here below or just place it inside the file sendEmail.js -->
+    <!--
+        We can place this code "emailjs.init()" either here below (in the head section)
+        or just place it inside our external JS file "sendEmail.js"
+    -->
     <script type="text/javascript">
-        // We still need to specify our usr_Id only
+        // We still need to specify our user_Id only
         (function () {
+            // Please don't forget to use your own userID, it has to be unique for every user!
             emailjs.init("user_J002NwewzK42InutfGPg8");
             /*
             First Step01: 
-            Remove the templates parameters if there is any from here 
-
-            Remove the emailjs.send() method from here
-
-            To be written in a separate js file
+            - Remove the templates parameters if there is any from here 
+            - Remove the emailjs.send() method from here
+            To be all written in our separate/external js file
             */
         })();
     </script>
@@ -87,22 +89,41 @@
             <div class="center-form">
                 <!-- 
                     Second Step02: 
+
+                    Before, we used onclick event handler, but with this email function we will other technique
                     we need to update our form element so that when a form has been submitted, 
                     we want to invoke a function that will send the email.
                     To do this, we add an onsubmit= "return sendMail()".
 
-                    And inside the brackets, we're going to pass in the parameter of "this", which will be this form.
+                    And inside the brackets, we're going to pass in the parameter of "this", 
+                    The JS keyword "this" will refer this form element (with all its content).
 
                     NOTES:
-                    - onsubmit event handler will be triggered when the form is submitted
-                    - the keyword "this" which is an argument to be passed to sendMail function will be represent the entire form element
+                    - onsubmit event handler will be triggered when the form is submitted [type="submit"]
+                    - the keyword "this" which is an argument to be passed to sendMail function 
+                    will represent the entire form element
                     - so we need to have button/input of type="submit" to trigger this event "onsubmit"
+
+                    - The question: Why using return? Can't we just type => onsubmit="sendMail(this)"
+                    - The answer: please refer to my lecture for JS fundamental module for more details
+
+                    NOTE:
+                    in my JS external file, I have two functions:
+                    - first one [sendMailOld()] that works without the need of passing "this" for this form
+                    - second one [sendMail(this] that works with passing "this" for this form
+
+                    You can comment/uncomment any one of the two form element opining tag to test either function
                 -->
+                <!-- <form onsubmit="return sendMailOld()"> -->
                 <form onsubmit="return sendMail(this)">
-                    <input type="text" name="name" class="form-control" id="fullname" placeholder="Name" required />
-                    <input type="text" name="emailaddress" class="form-control" id="emailaddress" placeholder="Email"
+                    <input type="text" name="name" class="form-control" id="full-name" placeholder="Name" required />
+                    <!-- 
+                        let's change the type="text" to be type="email"
+                        to activate the HTML5 email validation
+                     -->
+                    <input type="email" name="emailaddress" class="form-control" id="email-address" placeholder="Email"
                         required />
-                    <textarea rows="5" name="projectsummary" class="form-control" id="projectsummary"
+                    <textarea rows="5" name="projectsummary" class="form-control" id="project-summary"
                         placeholder="Project Description" required></textarea>
                     <button type="submit" class="btn btn-secondary center-block">Send Project Request</button>
                 </form>

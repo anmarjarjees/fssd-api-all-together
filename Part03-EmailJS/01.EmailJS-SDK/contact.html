@@ -14,72 +14,100 @@
         type="text/css" />
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
 
+    <!-- 
+        The link for the basic implementation of EmailJS:
+        *You will have to be logged in to open the link
+        https://dashboard.emailjs.com/admin/integration/browser
+
+        Or Going with the docs:
+        https://www.emailjs.com/docs/tutorial/creating-contact-form/
+     -->
+
     <!-- As the instructions state, we placed the code before the head closing tag -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 
     <script type="text/javascript">
         // Below is just the template for a self-invoking function:
+        /*  
+        The template (boilerplate) for a self-invoking function in JS:
+        (function (){
+            // my function code
+        })();
+        */
         // Just for learning purpose (Nothing to do with EmailJS)
         (function () {
-            // our code
+            // our code for testing and learning about "self-invoking function"
             console.log("hi there I am just a self invoking function!");
         })();
 
         /*
-        This is a self invoking function, 
+        This is a self invoking function for our topic "EmailJS", 
         so as soon as the page is opened/refreshed, this function is going to be called.
 
-        Which means every time you visit or refresh this page, an email will be send to you immediately after finishing the function!
+        Which means every time you visit or refresh this page, 
+        an email will be send to you immediately after finishing the function!!!
 
         This will be the major function to contain all the EmailJS Code:
-      */
+        */
         (function () {
             // 1. Installing EmailJS
             // Please use your own ID key after finishing your registration process
             // You can obtain your user ID from the Account - API keys page in the EmailJS dashboard.
             // NOTE: 
             // you can see your ID and API KEY within the same page section (Integration) of copying this code
-            // in other word, You can obtain your user ID from the integration page in the EmailJS dashboard
-            // emailjs.init("YOUR_USER_ID");
+            // in other word, You can obtain your user ID from the "Integration" page in the EmailJS dashboard
+            // https://dashboard.emailjs.com/admin/integration
+            // emailjs.init('YOUR_USER_ID');
             emailjs.init("user_J002NwewzK42InutfGPg8");
 
             // 2. emailjs.send
-            // Add the following code from EmailJS docs: SDK => emailjs.send which is the basic method to send an email with EmailJS.
+            // Add the following code from EmailJS docs: 
+            // SDK => emailjs.send which is the basic method to send an email with EmailJS.
             // The link: https://www.emailjs.com/docs/sdk/send/
-
-            // creating a simple JS object 
-
-            // Docs Syntax, the full official: emailjs.send(serviceID, templateID, templateParams, userID).then();
-            // The very basic method: emailjs.send("outlook","cbc_demo2");
-            // emailjs.send('outlook', 'cbc_demo2'); // it works fine just for a very quick test
-
-            // add the following code from EmailJS docs: SDK => emailjs.send
-            // which is the basic method to send an email with EmailJS.
-            // creating a simple JS object 
-            var templateParams = {
-                /*
-                We just copied this code from the docs page and modified it:
-                name: 'James',
-                notes: 'Check this out!'
-                */
-                name: 'Intructor Anmar',
-                notes: 'Email Demo for my FSSD students!'
-            }
-
             /*
-            Filling the info:
+            The basic method to send an email with EmailJS.
+            The Syntax ==> emailjs.send(serviceID, templateID, templateParams, userID);
+
+             Filling the info:
             emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
 
             No we need to know our Service_ID and Template_ID
 
             Based on the test email that we tried:
             YOUR_SERVICE_ID => outlook
-            YOUR_TEMPLATE_ID => cbc_demo2
+            YOUR_TEMPLATE_ID => cbc_demo3
 
             If you can't remember these two values, you can login into EmailJS then:
-            - check the service id in the home page
+            - check the service id in the home page [Email Services]
+            -- url: https://dashboard.emailjs.com/admin
             - check the template id in the Email Templates page (by clicking on Email Templates)
+            -- url: https://dashboard.emailjs.com/admin/templates
 
+            templateParams => Object => Template parameters of the template.
+            in a simple way: the "templateParams" object contains the form fields and their values
+            using key: value format like any simple object in JS:
+            
+            To review of a simple object that contain [key: value]:
+            var myObject = {
+                car_name: "Honda",
+                car_model: "2020",
+                car_type: "4WD",
+            }
+            
+            in our EmailJS code:
+            our object is named "templateParams" by Email Docs Convention 
+            the "keys" of our object "templateParams" will be just the object properties with any name 
+            the name should be meaningful/descriptive based on our HTML form
+            the "values" of our object "templateParams" will be just the user input
+
+            To imagine the idea (the final result), for example:
+            var templateParams = {
+                full_name: the value of the user input in the field "full_name",
+                email: the value of the user input in the field "email",
+                message: the value of the user input in the field "message"
+            }
+
+          
             Notice that this part of the code: .then(function....)
             it's new and additional.
             We will use the same .then() code block later
@@ -88,30 +116,99 @@
             but because we took the following code from the EmailJS docs, 
             we got the full code template
             */
-            // userID is optional
-            emailjs.send('outlook', 'cbc_demo2', templateParams).then(function (response) {
-                console.log('SUCCESS!', response.status, response.text);
-            }, function (error) {
-                console.log('FAILED...', error);
-            }); // the end of method then() for emailjs.send()
-        })();  // the end of our self invoking major function
 
-        //*********************************************//
+
+            // EmailJS Docs Syntax, the full official syntax: 
+            // emailjs.send(serviceID, templateID, templateParams, userID).then();
+
+            // The very basic method: emailjs.send("outlook","cbc_demo2");
+            // just by providing the email server and the email template id (no other parameters):
+            // emailjs.send('outlook', 'cbc_demo3'); // it works fine just for a very quick test
+
+            // Result
+            // The method returns the Promise (the idea of Promise in JS/jQuery same as we did with GitHubAPI). 
+            // Where response is object what contains the status and the text properties.
+            /*
+            email.send(param1,param2,param3).then(
+                function(response){
+                    // the code if everything was good, the promise is met
+                }),
+                function(errorResponse) {
+                    // Just out the error message or warning 
+                });
+
+            Remember the same logic with jQuery GitHub API Request:
+            $.when(
+                statement1,
+                statement2,
+                etc...
+                ).then(
+                function(goodResponse) {
+                    // this function will run when the condition is met in when() method
+                    // I will give you an extra mark
+                },
+                function(badResponse) {
+                    // this function will run when the condition is not met in when() method
+                    // Sorry I can't give you an extra mark
+                }
+            );
+
+            You can learn more about promise: https://www.w3schools.com/js/js_promise.asp
+            */
+
+
+            // creating a simple JS object named "templateParams"
+            var templateParams = {
+                /*
+                We just copied this code from the docs page and modified it:
+                name: 'James',
+                notes: 'Check this out!'
+                */
+                // for basic initial test, we are just hard coding the values
+                name: "Instructor Anmar",
+                notes: 'Email Demo for my FSSD students!'
+            }
+
+            // userID is optional
+            // userID => String	(optional) User ID of the account. It’s not required if you used the init method.
+            // Notice that we removed the last parameter of the send() method
+            // because we had already specified the userID with init() method
+            // The basic method to send an email with EmailJS.
+            // emailjs.send('outlook', 'cbc_demo3', templateParams);
+            emailjs.send('outlook', 'cbc_demo3', templateParams)
+                .then(function (response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                }, function (error) {
+                    console.log('FAILED...', error);
+                    /*
+                    Adding our own code for console/alert the reason of the error!
+                    An extra based on our understanding of the object "error"
+                    this object has two properties:
+                    - status
+                    - text
+                    */
+                    console.log("Error: " + error.text);
+                    // using \n for displaying the rest of the output message in a new line
+                    alert('Error in sending your message: \n' + error.text);
+                }); // the end of method then() for emailjs.send()
+        })(); // the end of our self invoking major function
+
+        // ***********************************
+        // If we don't like use hte self-invoking function!
         // Instead of using self-invoking function
         // you can use the normal way of creating a function and calling it after:
         /*
         function sendEmail() {
-            // copy and paste your full code:
-            emailjs.init("user_J002NwewzK42InutfGPg8");
+            // copy and paste your full code that we have written inside the above function:
+            emailjs.init("user_J002NwewzK42InutfGPg8")...etc.....;
         }
 
         sendEmail();
         */
-
     </script>
 
     <style>
-        /* Quick Review: */
+        /* Quick Review: :-) */
         .myDiv {
             margin: 5px 5px 5px 5px;
             /* Or just the short way */

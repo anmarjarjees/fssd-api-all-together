@@ -1,5 +1,4 @@
 function userInformationHTML(user) {
-
     return `
         <h2>${user.name}
             <span class="small-name">
@@ -31,13 +30,14 @@ function repoInformationHTML(repos) {
     if (repos.length == 0) {
         // empty array so no repos for this user:
         // return statement:
-        // - will return a value
+        // - will return a value which is a string: <div class="clearfix repo-list">No repos!</div>
         // - will stop the function
         return `<div class="clearfix repo-list">No repos!</div>`;
     }
     /*
     We are going take the results of the map() method that's going to be run against our repos array.
-    Remember that the map() method works like a forEach, but it returns an array with the results of this function.
+    Remember that the map() method works like a forEach() method, 
+    but it returns an array with the results of this function.
     
     So the variable "listItemsHTML" will be an array
     */
@@ -57,12 +57,12 @@ function repoInformationHTML(repos) {
     by returning the div, the same one that we returned in our error.
     inside this div => we add a paragraph to display the word "Repo List:"
      
-    then adding ul => 
-    remember that .map() method returns an array
+    then adding ul => remember that .map() method returns an array
     so in between <ul> and </ul> we output the array variable "listItemsHTML" using join method 
     we are using the join() method on that array to join everything with a new line (space)
     as a one string: ${listItemsHTML.join("\n")}
 
+    JavaScript Array join() Method:
     It's better to convert the listItemsHTML array into a string
     The link in W3Schools: https://www.w3schools.com/jsref/jsref_join.asp
     */
@@ -128,11 +128,19 @@ function fetchGitHubInformation() {
         secondResponse: $.getJSON(`https://api.github.com/users/${username}/repos`)
         */
         function (firstResponse, secondResponse) {
-            console.log("First Response: " + firstResponse); // for testing 
-            console.log("Second Response: " + secondResponse); // for testing 
+            // JS will use the + for concatenating, it will implicitly convert both to string
+            // console.log("First Response: " + firstResponse); // for testing: [object object]
+            console.log("First Response: ", firstResponse); // for testing 
+            console.log("Second Response: ", secondResponse); // for testing 
             // also changing userData and adding repoData
             /*
-            Now, when we do two calls for userData and repoData as shown below, 
+            *****
+            NOTE:
+            *****
+            When we do two calls for userData and repoData as shown above:
+            first request => $.getJSON(`https://api.github.com/users/${username}`),
+            second request => $.getJSON(`https://api.github.com/users/${username}/repos`
+            
             the when() method packs a response up into arrays.
             And each one is the first element of the array.
             So we just need to put the indexes in there for these responses.
@@ -141,6 +149,7 @@ function fetchGitHubInformation() {
             - firstResponse is an array
             - secondResponse is an array
             */
+
             // var userData = firstResponse; // we do need to specify the index 
             // var repoData = secondResponse; // we do need to specify the index 
             // for both array index 0 will represent our needed data
@@ -154,9 +163,11 @@ function fetchGitHubInformation() {
             /*
                 After that, we can just target "#gh-repo-data" as we did with targeting the "#gh-user-data"
                 The function "repoInformationHTML" will be created in "Rendering Repo Data" topic 
-                (check above code: Part 2)
+                (check above code: Code Part 2 [Second Steps])
             */
             $("#gh-repo-data").html(repoInformationHTML(repoData));
+            // Yes, we can use our pure JS DOM method:
+            // document.getElementById("gh-repo-data").innerHTML = repoInformationHTML(repoData);
         },
         function (errorResponse) {
             /*

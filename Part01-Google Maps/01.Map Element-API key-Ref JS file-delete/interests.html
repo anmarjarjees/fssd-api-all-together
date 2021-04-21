@@ -220,7 +220,7 @@
     src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
     </script>
 
-    In the LMS, they put the link for markercluser here, but we can do it later also
+    In the LMS, they put the link for markerclusterer here, but we can do it later also
     Add the marker clustering library to your page.
     In the code for this tutorial, the script below loads the MarkerClustererPlus library.
     Below is the recent updated code from Google which is "markerclustererplus":
@@ -250,11 +250,13 @@
         - async: loads the scripts at the same time as the HTML is loading, 
           and then there's just a brief pause while the script is executed.
         - defer: waits until the page has finished loading before the <script> is executed.
+
+        MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/script
         
         Google has provided these for us automatically as part of this tutorial.
         But usually in your own projects, if you're loading the scripts in the <head> element, then you can just use the defer tag.
 
-        Also in the address that we have a callback parameter and that it has the value of initMap: callback=initMap
+        Also in the address that we have a "callback" parameter and that it has the value of initMap: callback=initMap
         We're going to create the initMap() function soon, and this will be invoked once we've received the JavaScript files.
      -->
 </body>

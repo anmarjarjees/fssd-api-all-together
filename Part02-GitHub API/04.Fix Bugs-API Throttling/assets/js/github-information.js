@@ -42,8 +42,10 @@ function repoInformationHTML(repos) {
 function fetchGitHubInformation() {
     /* ********************************************************
     The first bug to fix:
-    we want to get rid of the issue with our gh-repo-data div not being cleared when there's an empty text box.
-    We're actually going to empty both of our divs.
+    we want to get rid of the issue with our gh-repo-data div not being cleared 
+    when there's an empty text box.
+
+    We're actually going to empty both of our divs: div of user information and div of repos information
     So we'll use jQuery first of all to select the gh-user-data div and set its HTML content to an empty string.
     and the same for gh-repo-data
     ********************************************************** */
@@ -95,6 +97,8 @@ function fetchGitHubInformation() {
             403 means forbidden. And this is the status code that GitHub returned when our access is denied.
             */
             else if (errorResponse.status == 403) {
+                // for testing:
+                console.log(errorResponse);
                 // alert(errorResponse.status);
                 /*
                 we're going to create a new variable called resetTime and set that to be a new date object.
@@ -113,16 +117,21 @@ function fetchGitHubInformation() {
                 https://docs.github.com/en/free-pro-team@latest/rest/overview/resources-in-the-rest-api#schema
                 */
                 console.log("We will reset the time:");
-                // var resetTime = new Date(errorResponse.getResponseHeader('X-RateLimit-Reset') * 1000);
-                // var resetTime = new Date(errorResponse.getResponseheader('X-RateLimit-Reset') * 1000);
-                // console.log("resetTime:", resetTime);
+                /*
+                Remember that "errorResponse" object has the following method:
+                - getResponseHeader: ƒ (e)
+                */
+
+                var resetTime = new Date(errorResponse.getResponseHeader('X-RateLimit-Reset') * 1000);
+                console.log("resetTime:", resetTime);
                 // for testing
                 console.log(errorResponse);
                 /*
                 Then all we need to take that resetTime variable and display it to our user.
                 So we'll use jQuery to target our gh-user-data element.
 
-                We're going to use the toLocaleTimeString() method on this resetTime date object that we've created.
+                We're going to use the toLocaleTimeString() method 
+                on this resetTime date object that we've created.
 
                 This function will do 2 things:
                 - Pick up your location from your browser 
@@ -132,8 +141,8 @@ function fetchGitHubInformation() {
                 */
                 $("#gh-user-data").html(
                     `<h4>
-                    Too many requests, you have to try again later. 
-                    <span class="small-name"> GitHub Error: ${errorResponse.statusText}<span>
+                    Too many requests, please wait until ${resetTime.toLocaleTimeString()}. 
+                    <span class="small-name"> GitHub Issue: ${errorResponse.statusText}<span>
                     </h4>`);
             }
             else {
@@ -154,14 +163,15 @@ function fetchGitHubInformation() {
 
 /*
 The next issue:
-The next thing is having the octocat profile displaying when the page is loaded, 
+The next thing is having the octocat profile displaying when the page is loaded,
 instead of just having an empty div.
 
-To do this, we're going to use the documentReady() function in jQuery 
+To do this, we're going to use the documentReady() function in jQuery
 and execute the fetchGitHubInformation() function when the DOM is fully loaded.
 
 Remember that we have: value="octocat" in the input box
 */
 $(document).ready(fetchGitHubInformation);
+
 
 // You can try your name or "aaronsnig501" for the author

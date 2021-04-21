@@ -239,14 +239,17 @@
             are locations in New York.
             */
             var locations = [
+                // This will represent the location "A"
                 {
                     lat: 40.785091,
                     lng: -73.968285
                 },
+                // This will represent the location "B"
                 {
                     lat: 41.084045,
                     lng: -73.874256
                 },
+                // This will represent the location ""
                 {
                     lat: 40.754932,
                     lng: -73.984016
@@ -255,9 +258,10 @@
 
             /*
             STEP 2:
-            Now, we need to iterate through that array and create a new marker that has the label from our string.
+            Now, we need to iterate through that array and create a new marker 
+            that has the label from our string "labels".
 
-            Please notice that this map method here is a built-in JavaScript method.
+            Please notice that this map() method here is a built-in JavaScript method.
             The map method in JavaScript works similar to a forEach() function.
             The difference is that this returns an array with the results of looping through each item in our locations array.
 
@@ -266,8 +270,11 @@
 
             - First Argument: that we're going to pass into our function is location, 
               which is the current value of where we are in the array as we're looping through.
-            - Second Argument: one is i, 
+            - Second Argument: i, 
               which is the index number of where we currently are in the array.
+
+            You can check this example in Google Map Documentation:
+            google map docs: https://developers.google.com/maps/documentation/javascript/marker-clustering
             */
             var markers = locations.map(function (location, i) {
                 /*
@@ -282,7 +289,7 @@
                     Because we want to get one of our labels out of the string that we've created.
                     Using length to find the length of the string
 
-                    The reason for using the % operator is so that if we have more than 26 locations, 
+                    The reason for using the % (modulo) operator is so that if we have more than 26 locations (more than the English Alphabetical letters 26), 
                     then it will loop around to the start of our string again and go from Z back to A, 
                     instead of throwing an error.
                     */
